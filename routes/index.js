@@ -35,7 +35,7 @@ router.get('/save', function (req, res, next) {
 });
 
 router.post('/save', function (req, res, next) {
-    var word = new Word({
+    let word = new Word({
         word: req.body.word,
         wordIndex: req.body.wordIndex,
         str: req.body.str,
@@ -52,6 +52,48 @@ router.post('/save', function (req, res, next) {
             res.jsonp({state:0});
         }else{
             res.jsonp({state:1});
+        }
+    });
+});
+
+router.post('/getSizeNoPaid', (req, res, next)=>{
+    console.log(req.body.username);
+    Word.getNoPaidSizeByUsername(req.body.username,(err,data)=>{
+        if (err){
+            console.log(err);
+            res.jsonp(0);
+        }else{
+            if(data==null){
+                res.jsonp(0);
+            }else{
+                res.jsonp(data);
+            }
+        }
+    })
+});
+
+router.post('/getSizePaid', (req, res, next)=>{
+    Word.getPaidSizeByUsername(req.body.username,(err,data)=>{
+        if (err){
+            console.log(err);
+            res.jsonp(0);
+        }else{
+            if(data==null){
+                res.jsonp(0);
+            }else{
+                res.jsonp(data);
+            }
+        }
+    })
+});
+
+router.post('/paidByUser',(req, res, next)=>{
+    Word.update({userId:req.body.username},{$set: {paid: true}},{multi:true},(err)=>{
+        if (err){
+            console.log(err);
+            res.jsonp('error');
+        }else{
+            res.jsonp('success');
         }
     });
 });

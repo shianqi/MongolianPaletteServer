@@ -21,7 +21,19 @@ WordSchema.statics = {
         return this
             .find({})
             .exec(cb);
-    }
+    },
+    getNoPaidSizeByUsername: function (username, cb) {
+        return this
+            .find({userId:username,paid:false})
+            .count()
+            .exec(cb);
+    },
+    getPaidSizeByUsername: function (username, cb) {
+        return this
+            .find({userId:username,paid:true})
+            .count()
+            .exec(cb);
+    },
 };
 
 
