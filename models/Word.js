@@ -1,9 +1,30 @@
 /**
+ * Word Models
  * Created by killer on 2016/12/11.
  */
-var mongoose = require('mongoose');
-var WordSchema = require('../schemas/Word');
+let mongoose = require('mongoose');
 
-var Word = mongoose.model('Word',WordSchema);
+let WordSchema = new mongoose.Schema({
+    word: String,
+    wordIndex: Number,
+    str: String,
+    createAtDate: Date,
+    updateAtDate: Date,
+    ipAddress: String,
+    phoneId: String,
+    userId: String,
+    paid: Boolean
+});
+
+WordSchema.statics = {
+    findAll : function (cb) {
+        return this
+            .find({})
+            .exec(cb);
+    }
+};
+
+
+let Word = mongoose.model('Word',WordSchema);
 
 module.exports = Word;
