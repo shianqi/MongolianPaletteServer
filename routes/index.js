@@ -87,6 +87,10 @@ router.post('/getSizePaid', (req, res, next)=>{
     })
 });
 
+router.get('/paidByUser',(req, res, next)=>{
+    res.render('index');
+});
+
 router.post('/paidByUser',(req, res, next)=>{
     Word.update({userId:req.body.username},{$set: {paid: true}},{multi:true},(err)=>{
         if (err){
