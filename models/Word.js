@@ -16,6 +16,8 @@ let WordSchema = new mongoose.Schema({
     paid: Boolean
 });
 
+
+
 WordSchema.statics = {
     findAll : function (cb) {
         return this
@@ -34,6 +36,11 @@ WordSchema.statics = {
             .count()
             .exec(cb);
     },
+    getGroup: function (cb) {
+        return this
+            .find({})
+            .exec(cb);
+    }
 };
 
 
